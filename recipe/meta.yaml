@@ -1,5 +1,5 @@
 {% set name = "mosec" %}
-{% set version = "0.7.2" %}
+{% set version = "0.8.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 35460339411b620a5a2df7f89d8d10bb200d68c5f349a578e8029cba5ee8535e
+  sha256: 0c436a5f23e359c51ad2d5ea8d04811ef130dede143b2384115da887d0d46abd
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
   skip: true  # [py<37]
 
