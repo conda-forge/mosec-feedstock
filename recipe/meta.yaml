@@ -19,6 +19,7 @@ requirements:
     - python
     - make
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('rust') }}
   host:
     - python
