@@ -14,8 +14,7 @@ build:
   skip: true  # [win]
   script:
     - {{ PYTHON }} -m pip install . -vv
-    - cargo install cargo-license
-    - cargo license --authors --avoid-build-deps --avoid-dev-deps --do-not-bundle --all-features --json > license.json
+    - cargo-bundle-licenses --format yaml --output LICENSES.yml
 
 requirements:
   build:
@@ -50,7 +49,7 @@ about:
     multi-stage pipeline to fully exploit your compute machine.
   license: Apache-2.0
   license_family: Apache
-  license_file: license.json
+  license_file: LICENSES.yml
   doc_url: https://mosecorg.github.io/mosec/
   dev_url: https://github.com/mosecorg/mosec
 
