@@ -10,12 +10,13 @@ source:
   sha256: d6bbd660c8ae40db49c9efd05f2a0d3d296aa54c5886aa60eaad693b6075884d
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   script:
+    - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
+    - export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"   # [unix]
     - {{ PYTHON }} -m pip install . -vv
-    - cargo install cargo-license
-    - cargo license --authors --avoid-build-deps --avoid-dev-deps --do-not-bundle --all-features --json > license.json
+    - cargo-bundle-licenses --format yaml --output LICENSES.yml
 
 requirements:
   build:
@@ -50,7 +51,7 @@ about:
     multi-stage pipeline to fully exploit your compute machine.
   license: Apache-2.0
   license_family: Apache
-  license_file: license.json
+  license_file: LICENSES.yml
   doc_url: https://mosecorg.github.io/mosec/
   dev_url: https://github.com/mosecorg/mosec
 
