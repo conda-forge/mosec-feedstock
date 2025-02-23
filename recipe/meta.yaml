@@ -1,5 +1,5 @@
 {% set name = "mosec" %}
-{% set version = "0.9.1" %}
+{% set version = "0.9.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d6bbd660c8ae40db49c9efd05f2a0d3d296aa54c5886aa60eaad693b6075884d
+  sha256: 58440f9bf73d90b90ffa3016ffc95bb6800a285df47a8ff68bdb26d669832d07
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   script:
     - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
