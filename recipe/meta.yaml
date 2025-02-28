@@ -26,7 +26,8 @@ requirements:
     - cargo-bundle-licenses
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    - {{ compiler('rust') }} >=1.85
+    # - {{ compiler('rust') }} >=1.85
+    - rust >=1.85
   host:
     - python
     - pip
