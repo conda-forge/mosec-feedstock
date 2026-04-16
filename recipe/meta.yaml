@@ -14,13 +14,6 @@ build:
   skip: true  # [win]
   script:
     - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
-    - export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"   # [unix]
-
-    # Avoid rust-lld on ppc64le cross-builds; use the GNU driver/binutils from conda-forge.
-    - export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER="$CC"  # [build_platform != target_platform and linux and ppc64le]
-    - export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_AR="$AR"      # [build_platform != target_platform and linux and ppc64le]
-    - export CC_powerpc64le_unknown_linux_gnu="$CC"                   # [build_platform != target_platform and linux and ppc64le]
-    - export AR_powerpc64le_unknown_linux_gnu="$AR"                   # [build_platform != target_platform and linux and ppc64le]
 
     - {{ PYTHON }} -m pip install . -vv
     - cargo-bundle-licenses --format yaml --output LICENSES.yml
