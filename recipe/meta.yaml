@@ -15,6 +15,16 @@ build:
   script:
     - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
     - export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"   # [unix]
+
+    # Force Cargo to use the target GNU binutils/driver for cross builds.
+    - export CARGO_BUILD_TARGET="{{ rust_target }}"  # [build_platform != target_platform]
+    - export CARGO_TARGET_{{ rust_target.upper().replace('-', '_') }}_LINKER="$CC"  # [build_platform != target_platform]
+    - export CARGO_TARGET_{{ rust_target.upper().replace('-', '_') }}_AR="$AR"  # [build_platform != target_platform]
+
+    # Make native build scripts such as zstd-sys pick the target toolchain too.
+    - export CC_{{ rust_target.replace('-', '_') }}="$CC"  # [build_platform != target_platform]
+    - export AR_{{ rust_target.replace('-', '_') }}="$AR"  # [build_platform != target_platform]
+
     - {{ PYTHON }} -m pip install . -vv
     - cargo-bundle-licenses --format yaml --output LICENSES.yml
 
