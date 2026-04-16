@@ -16,14 +16,11 @@ build:
     - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
     - export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"   # [unix]
 
-    # Force Cargo to use the target GNU binutils/driver for cross builds.
-    - export CARGO_BUILD_TARGET="{{ rust_target }}"  # [build_platform != target_platform]
-    - export CARGO_TARGET_{{ rust_target.upper().replace('-', '_') }}_LINKER="$CC"  # [build_platform != target_platform]
-    - export CARGO_TARGET_{{ rust_target.upper().replace('-', '_') }}_AR="$AR"  # [build_platform != target_platform]
-
-    # Make native build scripts such as zstd-sys pick the target toolchain too.
-    - export CC_{{ rust_target.replace('-', '_') }}="$CC"  # [build_platform != target_platform]
-    - export AR_{{ rust_target.replace('-', '_') }}="$AR"  # [build_platform != target_platform]
+    # Avoid rust-lld on ppc64le cross-builds; use the GNU driver/binutils from conda-forge.
+    - export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER="$CC"  # [build_platform != target_platform and linux and ppc64le]
+    - export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_AR="$AR"      # [build_platform != target_platform and linux and ppc64le]
+    - export CC_powerpc64le_unknown_linux_gnu="$CC"                   # [build_platform != target_platform and linux and ppc64le]
+    - export AR_powerpc64le_unknown_linux_gnu="$AR"                   # [build_platform != target_platform and linux and ppc64le]
 
     - {{ PYTHON }} -m pip install . -vv
     - cargo-bundle-licenses --format yaml --output LICENSES.yml
