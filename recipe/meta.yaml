@@ -14,7 +14,8 @@ build:
   skip: true  # [win]
   script:
     - export CARGO_PROFILE_RELEASE_STRIP=symbols  # [unix]
-
+    - export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"  # [unix]
+    - export RUSTFLAGS="$RUSTFLAGS -C link-arg=-fuse-ld=bfd"  # [linux and ppc64le]
     - {{ PYTHON }} -m pip install . -vv
     - cargo-bundle-licenses --format yaml --output LICENSES.yml
 
